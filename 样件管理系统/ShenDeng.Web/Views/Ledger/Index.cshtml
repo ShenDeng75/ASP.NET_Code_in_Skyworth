@@ -1,0 +1,104 @@
+﻿@model IEnumerable<ShenDeng.Domain.Exemplar>
+@using ShenDeng.Framework.Domain;
+@{
+    /**/
+
+    ViewBag.Title = "样件台账";
+    Layout = "~/Views/Shared/Home_Layout.cshtml";
+}
+
+<!-- 表格 -->
+<div style='height:450px;width:100%;display:block;overflow-y:auto; overflow:auto;'>
+    <table class="my-table">
+        <thead>
+            <tr>
+                <td><button class="button2" onclick="find()">查询</button></td>
+                <td></td>
+                <td><input type="date" name="fclosetime" class="input1" /></td>
+                <td><input type="text" name="fwlno" /></td>
+                <td></td>
+                <td><input type="text" name="fwlname" class="input2" /></td>
+                <td><input type="text" name="fwllclass" class="input2" /></td>
+                <td></td>
+                <td><input type="text" name="fsup" class="input2" /></td>
+                <td><input type="text" name="fver" class="input2" /></td>
+                <td></td>
+                <td><input name="fvertime" type="date" class="input1" /></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><input type="text" name="fstatus" class="input2" /></td>
+            </tr>
+            <tr>
+                <td class="firsttd"><input type="checkbox" id="ch" onclick="choose_all()" /></td>
+                <th>序号</th>
+                <th>封样日期</th>
+                <th>物料编号</th>
+                <th>模穴号</th>
+                <th>物料名称</th>
+                <th>物料大类</th>
+                <th>封样人</th>
+                <th>供应商</th>
+                <th>样件有效期</th>
+                <th>样件管理员</th>
+                <th>签收日期</th>
+                <th>审核人</th>
+                <th>审核结果</th>
+                <th>不良描述</th>
+                <th>样件状态</th>
+                <th>签收人</th>
+                <th>存放位置</th>
+                <th>超期月数</th>
+                <th>备注</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var no = 0;
+            }
+            @foreach (var item in Model)
+            {
+                no += 1;
+                <tr id=@item.DBID.ToString()>
+                    <td class="firsttd"><input type="checkbox" onclick="choose(this)" value=@item.DBID.ToString() id=@item.DBID.ToString() /></td>
+                    <td>@no</td>
+                    <td>@item.SealedTime.ToString().Split(new[] { ' ' })[0]</td>
+                    <td>@item.Id.Code</td>
+                    <td>@item.ModelNo</td>
+                    <td>@item.MaterialName</td>
+                    <td>@item.MaterialClass</td>
+                    <td>@item.CloseName</td>
+                    <td>@item.Supplier</td>
+                    <td>@item.ValidTime</td>
+                    <td>@item.ExemManager</td>
+                    <td>@item.SignDate.ToString().Split(new[] { ' ' })[0]</td>
+                    <td>@item.Verifier</td>
+                    <td>@item.VerResult</td>
+                    <td></td>
+                    <td>@item.ExemStatus</td>
+                    <td>@item.Signer</td>
+                    <td>@item.SaveSpace</td>
+                    <td>@item.LimitMonth</td>
+                    <td name="back"><span>@item.BackReason</span><input type='text' name='backrea' class='input2 display2' /></td>
+                    @{
+                        var account = ViewData["account"] as Account;
+                        if (account != null && (account.Roles & (int)Role.Admin) == (int)Role.Admin)
+                        {
+                         <td><a href="#" id=@item.DBID.ToString() onclick="backout(this)" >撤销</a></td>
+                        }
+                     }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="center1">
+    <button type="button" class="button1" onclick="Output()">导出</button>
+</div>
+<div style="text-align:right">
+    <a class="file" href="javascript:void(0);" style="margin-top:10px">
+        导入历史数据
+        <input id="file" type="file" onchange="import_file(this)" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple="multiple" />
+    </a>
+</div>
+<script src="~/Content/js/Leger.js"></script>

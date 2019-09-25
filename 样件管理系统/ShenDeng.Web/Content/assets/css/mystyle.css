@@ -1,0 +1,248 @@
+﻿.file {    /*美化文件上传按钮*/
+    position: relative;
+    display: inline-block;
+    /*background: #D0EEFF;*/
+    /*border: 1px solid #99D3F5;*/
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    /*color: #1E88C7;*/
+    text-decoration: none;
+    text-indent: 0;
+    /*line-height: 20px;*/
+}
+
+    .file input {
+        position: absolute;
+        font-size: 100px;
+        right: 0;
+        top: 0;
+        opacity: 0;
+    }
+
+    .file:hover {
+        /*background: #AADFFD;*/
+        /*border-color: #78C3F3;*/
+        /*color: #004974;*/
+        text-decoration: none;
+    }
+
+.button1 { /* 按钮美化 */
+    width: 140px; /* 宽度 */
+    height: 38px; /* 高度 */
+    border-width: 0px; /* 边框宽度 */
+    border-radius: 3px; /* 边框半径 */
+    background: #1E90FF; /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+    font-family: Microsoft YaHei; /* 设置字体 */
+    color: white; /* 字体颜色 */
+    font-size: 17px; /* 字体大小 */
+    margin-top: 10px;
+}
+.button2 { /* 按钮美化 */
+    width: 50px; /* 宽度 */
+    height: 32px; /* 高度 */
+    border-width: 0px; /* 边框宽度 */
+    border-radius: 3px; /* 边框半径 */
+    background: #1E90FF; /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+    font-family: Microsoft YaHei; /* 设置字体 */
+    color: white; /* 字体颜色 */
+    font-size: 17px; /* 字体大小 */
+}
+.button1:hover { /* 鼠标移入按钮范围时改变颜色 */
+    background: #5599FF;
+}
+
+/** Table 表格样式 **/
+.my-table {
+    border-collapse: collapse;
+    width: 1400px;
+    border: 1px solid #F8F8FF !important;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    white-space: nowrap;
+}
+
+    .my-table th {
+        border-collapse: collapse;
+        border-right: 1px solid #ffffff !important;
+        border-bottom: 1px solid #c6c6c6 !important;
+        background-color: #4F4F4F !important;
+        color: #ffffff;
+        padding: 5px 9px;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+    }
+
+    .my-table td {
+        border-collapse: collapse;
+        border-right: 1px solid #ffffff !important;
+        border-bottom: 1px solid #c6c6c6 !important;
+        padding: 5px 9px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #000000;
+        font-family: "Microsoft YaHei";
+        text-align: center;
+        word-break: break-all;
+    }
+
+    .my-table tr:nth-child(odd) { /*背景颜色交替显示*/
+        background-color: #FFFFFF;
+    }
+
+    .my-table tr:nth-child(even) {
+        background-color: #DCDCDC;
+    }
+    .my-table .toRed {
+        background-color: #EE6363 !important;
+    }
+    .my-table .toRed2 {
+        background-color: #FFEC8B !important;
+    }
+.firsttd {
+    width: 15px;
+    background-color: #FFFFFF;
+}
+.font_b_mh {
+    font-weight: 600;
+    color: #000000;
+    font-family: "Microsoft YaHei";
+    margin-bottom: 10px;
+}
+
+.hide {   /* 隐藏 */
+    visibility:hidden;
+}
+
+.alert {    /* 弹出提示框 */
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 200px;
+    margin-left: -100px;
+    z-index: 99999;
+    padding: 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.alert-success {
+    color: #008B00;
+    background-color: #dff0d8;
+    border-color: #3c763d;
+}
+
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #FF0000;
+}
+
+.mytools {      /* 导航栏的工具 */
+    font-size: 18px;
+    font-weight: 800;
+    margin-left: 100px;
+    width: 100px;
+    text-align: center;
+}
+
+.away {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+input[type="text"], /* input美化 */
+input[type="password"] {
+    border: 1px solid #ccc;
+}
+
+input {
+    border: 1px solid #ccc;
+    padding: 7px 0px;
+    border-radius: 3px;
+    padding-left: 5px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    font-family: "Microsoft YaHei";
+}
+.input1 {
+    border: 1px solid #ccc;
+    width: 120px !important;
+    border-radius: 3px;
+    font-family: "Microsoft YaHei";
+}
+.input2 {
+    border: 1px solid #ccc;
+    width: 80px !important;
+    border-radius: 3px;
+    font-family: "Microsoft YaHei";
+}
+.long_input {
+    width: 180px;
+}
+.nomal_input {
+    width: 140px;
+}
+.sort_input {
+    width: 100px;
+}
+
+.shortselect { /* 下拉菜单美化 */
+    background: #fafdfe;
+    height: 35px;
+    width: 120px;
+    line-height: 28px;
+    border: 1px solid #9bc0dd;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+
+label {
+    font-size: 18px;
+    font-weight: 500;
+    color: #000000;
+    font-family: "Microsoft YaHei";
+    margin-bottom: 10px;
+}
+
+.float_div {
+    float:left;
+    margin-right: 10px;
+}
+.mylable {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: "Microsoft YaHei";
+}
+.input {
+    border-color: #FF0000;
+    border-style: solid;
+}
+.center1{
+    text-align: center;
+}
+.display2 {
+    display:none;
+}

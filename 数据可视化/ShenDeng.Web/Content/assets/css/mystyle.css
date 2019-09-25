@@ -1,0 +1,40 @@
+﻿input[type="text"], /* input美化 */
+input[type="password"] {
+    width: 100px;
+    border: 1px solid #ccc;
+}
+
+input {
+    border: 1px solid #ccc;
+    padding: 7px 0px;
+    border-radius: 3px;
+    padding-left: 5px;
+}
+
+.shortselect { /* 下拉菜单美化 */
+    background: #fafdfe;
+    height: 28px;
+    width: 180px;
+    line-height: 28px;
+    border: 1px solid #9bc0dd;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+
+.button1 { /* 按钮美化 */
+    width: 140px; /* 宽度 */
+    height: 38px; /* 高度 */
+    border-width: 0px; /* 边框宽度 */
+    border-radius: 3px; /* 边框半径 */
+    background: #1E90FF; /* 背景颜色 */
+    cursor: pointer; /* 鼠标移入按钮范围时出现手势 */
+    outline: none; /* 不显示轮廓线 */
+    font-family: Microsoft YaHei; /* 设置字体 */
+    color: white; /* 字体颜色 */
+    font-size: 17px; /* 字体大小 */
+}
+
+.button1:hover { /* 鼠标移入按钮范围时改变颜色 */
+    background: #5599FF;
+}

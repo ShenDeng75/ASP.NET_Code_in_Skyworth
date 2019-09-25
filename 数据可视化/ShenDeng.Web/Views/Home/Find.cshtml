@@ -1,0 +1,263 @@
+﻿@using ShenDeng.Framework.Domain
+@using ShenDeng.Framework.Tools
+
+@{
+    ViewBag.Title = "查询";
+    Layout = "~/Views/Shared/Home_Layout.cshtml";
+}
+<link href="~/Content/assets/css/mystyle.css" type="text/css" rel="stylesheet"/>
+
+<h2>站点信息查询</h2>
+<br />
+<div>
+    <lable>站点:</lable> @Html.DropDownList("proc", ViewData["downData"] as SelectList, "---请选择---", new { @class = "shortselect" }) &nbsp
+    <lable>线体:</lable> @Html.DropDownList("line", ViewData["line_items"] as SelectList, "---请选择---", new { @class = "shortselect" }) &nbsp
+    <lable>时间:</lable> <input type="date" name="stime" />&nbsp
+    <button type="button" onclick="show()" class="button1">查询</button>
+</div>
+<br />
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div id="main" style="width: 800px;height:400px;"></div>
+<div id="main2" style="width: 800px;height:400px;"></div>
+
+<script type="text/javascript">
+    function show() {
+        var proc = $("[name = 'proc']").val();
+        var line = $("[name = 'line']").val();
+        var stime = $("[name = 'stime']").val();
+        $.ajax({
+            url: "Ajax_Find",
+            type: "post",
+            dataType: "json",
+            contentType: "application/json",
+            data: { "proc": proc, "line": line, "stime": stime },
+            success: function (result) {
+                var main = document.getElementById('main');
+                var main2 = document.getElementById('main2');
+
+                if ($.isEmptyObject(result.hour)) {
+                    main.innerHTML = "<h3 style='text-align:center;'>暂无数据</h3>";
+                    main2.innerHTML = "";
+                    $('#main').removeAttr('_echarts_instance_'); //必须去掉该标签，否则在为空后无法显示
+                    $('#main2').removeAttr('_echarts_instance_');
+
+                }
+                else {
+                    var myChart = echarts.init(main);
+                    var myChart2 = echarts.init(main2);
+
+                    var x = result.hour;
+                    var passcounts = result.passcounts;
+                    var failcounts = result.failcounts;
+                    var rates = result.rates;
+                    var stimes = result.stimes;
+
+                    var option = {   //数量，通过率
+                        title: {
+                            text: '产品详情'
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {  //标签
+                            data: ['通过', '失败', '通过率']
+                        },
+                        toolbox: {  //工具栏
+                            show: true,
+                            feature: {
+                                mark: { show: true },
+                                dataView: { show: true, readOnly: false },
+                                magicType: { show: true, type: ['line', 'bar'] },
+                                restore: { show: true },
+                                saveAsImage: { show: true }
+                            }
+                        },
+                        calculable: true,
+                        xAxis: {  //x轴
+                            data: x,
+                            axisLabel: {  //字体样式
+                                show: true,
+                                textStyle: {
+                                    color: '#000000',
+                                    fontSize: '14'
+                                }
+                            },
+                            // 控制网格线是否显示
+                            splitLine: {
+                                show: true,
+                                //  改变轴线颜色
+                                lineStyle: {
+                                    // 使用深浅的间隔色
+                                    color: ['#778899']
+                                }
+                            }
+                        },
+                        yAxis: [{ //y轴
+                            name: "数量(个)",
+                            axisLabel: {  //字体样式
+                                show: true,
+                                textStyle: {
+                                    color: '#000000',
+                                    fontSize: '14'
+                                }
+                            }
+                        },
+                        {
+                            type: 'value',
+                            name: '通过率',
+                            axisLabel: {
+                                formatter: '{value} %',
+                                show: true,
+                                textStyle: {
+                                    color: '#000000',
+                                    fontSize: '14'
+                                }
+                            }
+                        }
+                        ],
+                        series: [
+                        { // 通过的
+                            name: '通过',
+                            type: 'bar',
+                            data: passcounts,
+                            itemStyle: {
+                                normal: {
+                                    color: "#006400",
+                                    label: {
+                                        show: true, //开启显示
+                                        position: 'top', //在上方显示
+                                        textStyle: { //数值样式
+                                            color: '#006400',
+                                            fontSize: 16
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {  // 失败的
+
+                            name: '失败',
+                            type: 'bar',
+                            data: failcounts,
+                            itemStyle: {
+                                normal: {
+                                    color: "#FF0000",
+                                    label: {
+                                        show: true, //开启显示
+                                        position: 'top', //在上方显示
+                                        textStyle: { //数值样式
+                                            color: '#FF0000',
+                                            fontSize: 16
+                                        }
+                                    }
+                                }
+                            },
+                            },
+                        {  // 通过率
+                                name: '通过率',
+                                type: 'line',
+                                yAxisIndex: 1,
+                            data: rates,
+                            itemStyle: {
+                                normal: {
+                                    label: {
+                                        show: true,
+                                        textStyle: { //数值样式
+                                            color: '#FF3030',
+                                            fontSize: 14,
+                                        }
+                                    }
+                                }
+                            },
+                        }
+                        ]
+                    };
+                    option2 = {   // 使用的时间
+                        title: {
+                            text: '时间使用详情',
+                        },
+                        tooltip: {
+                            trigger: 'axis'
+                        },
+                        legend: {
+                            data: ['用时']
+                        },
+                        toolbox: {
+                            show: true,
+                            feature: {
+                                mark: { show: true },
+                                dataView: { show: true, readOnly: false },
+                                magicType: { show: true, type: ['line', 'bar'] },
+                                restore: { show: true },
+                                saveAsImage: { show: true }
+                            }
+                        },
+                        calculable: true,
+                        xAxis: [
+                            {
+                                type: 'category',
+                                boundaryGap: false,
+                                data: x,
+                                // 控制网格线是否显示
+                                splitLine: {
+                                    show: true,
+                                    //  改变轴线颜色
+                                    lineStyle: {
+                                        // 使用深浅的间隔色
+                                        color: ['#778899']
+                                    }
+                                },
+                                axisLabel: {  //字体样式
+                                    show: true,
+                                    textStyle: {
+                                        color: '#000000',
+                                        fontSize: '14'
+                                    }
+                                }
+                            }
+                        ],
+                        yAxis: [
+                            {
+                                type: 'value',
+                                axisLabel: {
+                                formatter: '{value} 秒',
+                                  show: true,
+                                  textStyle: {
+                                      color: '#000000',
+                                      fontSize: '14',
+                                  }
+                                }
+                            }
+                        ],
+                        series: [
+                            {
+                                name: '用时',
+                                type: 'line',
+                                data: stimes,
+                                itemStyle: {
+                                    normal: {
+                                        label: {
+                                            show: true,
+                                            textStyle: { //数值样式
+                                                color: '#006400',
+                                                fontSize: 16,
+                                            }
+                                        }
+                                    }
+                                },
+                                markLine: {
+                                    data: [
+                                        { type: 'average', name: '平均值' }
+                                    ]
+                                }
+                            }
+                        ]
+                    };
+                    // 使用刚指定的配置项和数据显示图表。
+                    myChart.setOption(option);
+                    myChart2.setOption(option2)
+                }
+            }
+        })
+    }
+    </script>

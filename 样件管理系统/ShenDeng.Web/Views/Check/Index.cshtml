@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ShenDeng.Domain.Exemplar>
+@{
+    ViewBag.Title = "样件审核";
+    Layout = "~/Views/Shared/Home_Layout.cshtml";
+}
+
+<!-- 表格 -->
+<div style='height:450px;width:100%;display:block;overflow-y:auto; overflow:auto;'>
+    <table class="my-table">
+        <thead>
+            <tr>
+                <td><button class="button2" onclick="find()">查询</button></td>
+                <td></td>
+                <td><input type="date" name="fclosetime" class="input1" /></td>
+                <td><input type="text" name="fwlno" /></td>
+                <td></td>
+                <td><input type="text" name="fwlname" class="input2" /></td>
+                <td><input type="text" name="fwllclass" class="input2" /></td>
+                <td></td>
+                <td><input type="text" name="fsup" class="input2" /></td>
+                <td><input type="text" name="fver" class="input2" /></td>
+                <td></td>
+                <td><input name="fvertime" type="date" class="input1" /></td>
+            </tr>
+            <tr>
+                <td class="firsttd"><input type="checkbox" id="ch" onclick="choose_all()" /></td>
+                <th>序号</th>
+                <th>封样日期</th>
+                <th>物料编号</th>
+                <th>模穴号</th>
+                <th>物料名称</th>
+                <th>物料大类</th>
+                <th>封样人</th>
+                <th>供应商</th>
+                <th>样件有效期</th>
+                <th>样件管理员</th>
+                <th>签收日期</th>
+                <th>审核人</th>
+                <th>审核结果</th>
+                <th>不良描述</th>
+                <th>样件状态</th>
+                <th>签收人</th>
+                <th>存放位置</th>
+                <th>超期月数</th>
+                <th>退回理由</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var no = 0;
+            }
+            @foreach (var item in Model)
+            {
+                no += 1;
+                <tr id=@item.DBID.ToString()>
+                    <td class="firsttd"><input type="checkbox" onclick="choose(this)" value=@item.DBID.ToString() id=@item.DBID.ToString() /></td>
+                    <td>@no</td>
+                    <td>@item.SealedTime.ToString().Split(new[] { ' ' })[0]</td>
+                    <td>@item.Id.Code</td>
+                    <td>@item.ModelNo</td>
+                    <td>@item.MaterialName</td>
+                    <td>@item.MaterialClass</td>
+                    <td>@item.CloseName</td>
+                    <td>@item.Supplier</td>
+                    <td>@item.ValidTime</td>
+                    <td>@item.ExemManager</td>
+                    <td>@item.SignDate.ToString().Split(new[] { ' ' })[0]</td>
+                    <td></td>
+                    <td><select class="display2 shortselect">
+                        <option>OK</option>
+                        <option>NG</option>
+                        </select></td>
+                    <td><input type="text" value="" class="display2" /></td>
+                    <td>@item.ExemStatus</td>
+                    <td>@item.Signer</td>
+                    <td>@item.SaveSpace</td>
+                    <td>@item.LimitMonth</td>
+                    <td>@item.BackReason</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<div class="center1">
+    <button type="button" class="button1" onclick="submit2()">提交</button>
+</div>
+
+<script src="~/Content/js/Check.js"></script>

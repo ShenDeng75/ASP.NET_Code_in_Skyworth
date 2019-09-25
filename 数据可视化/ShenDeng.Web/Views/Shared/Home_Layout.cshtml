@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>主页</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <!-- 图标 -->
+    <link rel="shortcut icon" href="../Content/assets/images/favicon.ico">
+
+    <!-- css -->
+    <link href="../Content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="../Content/assets/css/style.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/Content/assets/js/modernizr.min.js"></script>
+    <script src="~/Content/assets/js/echarts.js"></script>
+    <script src="~/Content/assets/js/myjs.js"></script>
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- ========== 页眉 开始 ========== -->
+        <div class="topbar">
+
+            <!-- Logo -->
+            <div class="topbar-left">
+                <a href="#" class="logo">
+                    <span>
+                        <img src="../Content/assets/images/logo.png" alt="" height="16">
+                    </span>
+                    <i>
+                        <img src="../Content/assets/images/logo_sm.png" alt="" height="28">
+                    </i>
+                </a>
+            </div>
+
+            <nav class="navbar-custom">
+
+                <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle arrow-none waves-light waves-effect" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <i class="fi-bell noti-icon"></i>
+                            <span class="badge badge-danger badge-pill noti-icon-badge">1</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-lg">
+
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h6 class="m-0"><span class="float-right"><a href="" class="text-dark"><small>清空</small></a> </span>通知</h6>
+                            </div>
+
+                            <div class="slimscroll" style="max-height: 190px;">
+                                <!-- item-->
+                                <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                    <div class="notify-icon bg-success"><i class="mdi mdi-comment-account-outline"></i></div>
+                                    <p class="notify-details">系统调试<small class="text-muted">1 小时前</small></p>
+                                </a>
+
+                            </div>
+
+                            <!-- All-->
+                            <a href="javascript:void(0);" class="dropdown-item text-center text-primary notify-item notify-all">
+                                查看所有 <i class="fi-arrow-right"></i>
+                            </a>
+
+                        </div>
+                    </li>
+
+
+
+                    <li class="dropdown notification-list">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                           aria-haspopup="false" aria-expanded="false">
+                            <img src="../Content/assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle"> <span class="ml-1">神灯同学 <i class="mdi mdi-chevron-down"></i> </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                            <!-- item-->
+                            <div class="dropdown-item noti-title">
+                                <h6 class="text-overflow m-0">账户菜单</h6>
+                            </div>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="fi-head"></i> <span>个人信息</span>
+                            </a>
+
+                            <!-- item-->
+                            <a href="javascript:void(0);" class="dropdown-item notify-item">
+                                <i class="fi-power"></i> <span>退出登录</span>
+                            </a>
+
+                        </div>
+                    </li>
+
+                </ul>
+
+                <ul class="list-inline menu-left mb-0">
+                    <li class="float-left">
+                        <button class="button-menu-mobile open-left waves-light waves-effect">
+                            <i class="dripicons-menu"></i>
+                        </button>
+                    </li>
+                    <li class="hide-phone app-search">
+                        <form role="search" class="">
+                            <input type="text" placeholder="暂无搜索功能..." class="form-control">
+                            <a href=""><i class="fa fa-search"></i></a>
+                        </form>
+                    </li>
+                </ul>
+
+            </nav>
+
+        </div>
+        <!-- 页眉 结束 -->
+
+        <!-- ========== 左边菜单 开始 ========== -->
+        <div class="left side-menu">
+            <div class="slimscroll-menu" id="remove-scroll">
+
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+                    <!-- Left Menu Start -->
+                    <ul class="metismenu" id="side-menu">
+                        <li class="menu-title">菜单栏</li>
+
+                        <li>
+                            <a href="javascript: void(0);"><i class="fi-briefcase"></i> <span> 站点信息 </span> <span class="menu-arrow"></span></a>
+                            <ul class="nav-second-level" aria-expanded="false">
+                                <li><a href="/Home/Find">站点信息查询</a></li>
+                            </ul>
+                        </li>
+
+                        @*<li>
+                            <a href="javascript: void(0);"><i class="fi-box"></i><span> 看板中心 </span> <span class="menu-arrow"></span></a>
+                            <ul class="nav-second-level" aria-expanded="false">
+                                <li><a href="#">车间实时产能效</a></li>
+                                <li><a href="#">完成情况</a></li>
+                                <li><a href="#">查询信息等</a></li>
+                                <li><a href="#">其他的看板</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="javascript: void(0);"><i class="fi-bar-graph-2"></i><span> 追溯中心 </span> <span class="menu-arrow"></span></a>
+                            <ul class="nav-second-level" aria-expanded="false">
+                                <li><a href="#">物料追溯</a></li>
+                                <li><a href="#">Log日志分析</a></li>
+                            </ul>
+                        </li>*@
+
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+                <div class="clearfix"></div>
+            </div>
+            <!-- Sidebar -left -->
+        </div>
+        <!-- 左边内容 结束 -->
+
+        <!-- ========== 右边内容 开始 ========== -->
+        <div class="content-page">
+            <!-- 分页内容 开始 -->
+            <div class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- 分页内容 结束 -->
+            <footer class="footer text-right">
+                2018 - 2019 © 创维-神灯同学
+            </footer>
+        </div>
+        <!-- 右边内容 结束 -->
+
+    </div>
+    <!-- jQuery  -->
+    <script src="../Content/assets/js/jquery.min.js"></script>
+    <script src="../Content/assets/js/popper.min.js"></script>
+    <script src="../Content/assets/js/bootstrap.min.js"></script>
+    <script src="../Content/assets/js/metisMenu.min.js"></script>
+    <script src="../Content/assets/js/waves.js"></script>
+    <script src="../Content/assets/js/jquery.slimscroll.js"></script>
+    <script src="../Content/assets/js/jquery.waypoints.min.js"></script>
+    <script src="../Content/assets/js/jquery.counterup.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="../Content/assets/js/chart.bundle.js"></script>
+
+    <!-- App js -->
+    <script src="../Content/assets/js/jquery.core.js"></script>
+    <script src="../Content/assets/js/jquery.app.js"></script>
+</body>
+</html>

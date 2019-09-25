@@ -1,0 +1,291 @@
+﻿@using ShenDeng.Framework.Base;
+@using ShenDeng.Framework;
+@using ShenDeng.Framework.Domain;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title</title>
+
+    <!-- 图标 -->
+    <link rel="shortcut icon" href="~/Content/assets/images/favicon.ico">
+
+    <!-- css -->
+    <link href="~/Content/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/css/metismenu.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/assets/css/mystyle.css" type="text/css" rel="stylesheet" />
+
+    <script src="~/Content/assets/js/modernizr.min.js"></script>
+    <script src="~/Content/assets/js/echarts.js"></script>
+    <script src="~/Content/assets/js/jquery.min.js"></script>
+
+
+</head>
+
+<body>
+    @* 提示框 *@
+    <div class="alert"></div>
+
+    <div id="wrapper">
+
+        <!-- ========== 页眉 开始 ========== -->
+        <div class="topbar">
+
+            <!-- Logo -->
+            <div class="topbar-left">
+                <a href="#" class="logo">
+                    <span>
+                        <img src="~/Content/assets/images/logo.png" alt="" height="50">
+                    </span>
+                    <i>
+                        <img src="~/Content/assets/images/logo_sm.png" alt="" height="28">
+                    </i>
+                </a>
+            </div>
+
+            <nav class="navbar-custom">
+
+                <ul class="list-unstyled topbar-right-menu float-right mb-0">
+                    @{
+                        var sessionsever = UnityIoC.Get<IMySessionService>();
+                        var account = sessionsever.GetAccount();
+                        if (account == null)
+                        {
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="modal" data-target="#login" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <span class="ml-1"> 未登录 </span>
+                                </a>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li class="dropdown notification-list">
+                                <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" data-toggle="dropdown" href="#" role="button"
+                                   aria-haspopup="false" aria-expanded="false">
+                                    <img src="~/Content/assets/images/users/avatar-1.jpg" alt="user" class="rounded-circle"> <span class="ml-1">@account.Id.UserName <i class="mdi mdi-chevron-down"></i> </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right profile-dropdown ">
+                                    <!-- item-->
+                                    <div class="dropdown-item noti-title">
+                                        <h6 class="text-overflow m-0">账户菜单</h6>
+                                    </div>
+
+                                    <!-- item-->
+                                    <a href="#" class="dropdown-item notify-item"  data-toggle="modal" data-target="#AccountMsg" >
+                                        <i class="fi-head"></i> <span>个人信息</span>
+                                    </a>
+
+                                    <!-- item-->
+                                    <a href="/Account/SignOut" class="dropdown-item notify-item">
+                                        <i class="fi-power"></i> <span>退出登录</span>
+                                    </a>
+
+                                </div>
+                            </li>
+                        }
+                    }
+
+
+                </ul>
+
+                <ul class="list-unstyled topbar-right-menu float-right mb-0 hide" id="Exemplar_import">
+
+                    <li class="dropdow">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user" href="~/File/样件导入模板文件.xlsx">
+                            <i class="mdi mdi-earth"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 模板下载  </font></font>
+                        </a>
+
+                    </li>
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light nav-user file" href="#">
+                            <input id="file" type="file" name="file" onchange="choose_file()" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" multiple="multiple" />
+                            <i class="mdi mdi-earth"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Excel导入  </font></font>
+                        </a>
+
+                    </li>
+
+                </ul>
+
+
+                <ul class="list-inline menu-left mb-0">
+                    <li class="float-left">
+                        <button class="button-menu-mobile open-left waves-light waves-effect">
+                            <i class="dripicons-menu"></i>
+                        </button>
+                    </li>
+                    @*<li class="hide-phone app-search" id="search_li">
+
+                        <form role="search" class="">
+                            <input type="text" class="form-control" size="19" value="暂无搜索功能..." onfocus="if (value =='暂无搜索功能...'){value =''}" onblur="if (value ==''){value='暂无搜索功能...'}" />
+                            <a href=""><i class="fa fa-search"></i></a>
+                        </form>
+                    </li>*@
+
+                </ul>
+
+            </nav>
+
+        </div>
+        <!-- 登录窗口 -->
+        <div class="modal fade" id="login" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel">用户登录</h3>
+                    </div>
+                    <div class="modal-body">
+                        <table  width="800px" style="height:50px">
+                            <tr>
+                                <td class="mylable">用户名</td>
+                                <td><input type="text" name="username" />  </td>
+                            </tr>
+                            <tr>
+                                <td class="mylable">密 &nbsp; 码</td>
+                                <td><input type="password" name="password" />  </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="button" id="login_button" onclick="login()">登录</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 个人信息窗口 -->
+        @if (account != null){ 
+        <div class="modal fade" id="AccountMsg" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h3 id="myModalLabel">个人信息</h3>
+                    </div>
+                    <div class="modal-body">
+                        <table  width="800px" style="height:50px">
+                            <tr>
+                                <td class="mylable">用户名</td>
+                                <td><input type="text" name="musername" value=@account.Id.UserName readonly="readonly" />  </td>
+                            </tr>
+                            <tr>
+                                <td class="mylable">工 &nbsp; 号</td>
+                                <td><input type="text" name="mjobnumber" value=@account.Job_Numner readonly="readonly" />  </td>
+                            </tr>
+                            <tr>
+                                <td class="mylable">旧密码</td>
+                                <td><input type="password" name="oldpwd" />  </td>
+                            </tr>
+                            <tr>
+                                <td class="mylable">新密码</td>
+                                <td><input type="password" name="newpwd" />  </td>
+                            </tr>
+                            <tr>
+                                <td class="mylable">确认密码</td>
+                                <td><input type="password" name="conpwd" />  </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="button" id="msg_button" onclick="resetpwd()">确认修改</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+        <!-- 页眉 结束 -->
+        <!-- ========== 左边菜单 开始 ========== -->
+        <div class="left side-menu">
+            <div class="slimscroll-menu" id="remove-scroll">
+
+                <!--- Sidemenu -->
+                <div id="sidebar-menu">
+                    <!-- Left Menu Start -->
+                    <ul class="metismenu" id="side-menu">
+                        <li class="menu-title">菜单栏</li>
+                        <li>
+                            <a href="/Home/ExepImport"><i class="fi-marquee-plus"></i> <span> 样件导入 </span> </a>
+
+                        </li>
+                        <li>
+                            <a href="/Check/Index"><i class="fi-paper-stack"></i> <span> 样件审核 </span></a>
+                        </li>
+                        <li>
+                            <a href="/Save/Index"><i class="fi-box"></i><span> 样件存储 </span> </a>
+
+                        </li>
+                        <li>
+                            <a href="/OverHandl/Index"><i class="fi-clock"></i><span> 超期处理 </span></a>
+
+                        </li>
+                        <li>
+                            <a href="/Ledger/Index"><i class="fi-layout"></i><span> 样件台账 </span></a>
+
+                        </li>
+                        @{
+                            if (account != null && (account.Roles & (int)Role.Admin) != 0)
+                            {
+                                <li>
+                                    <a href="/Admin/Admin/ManageAccount"><i class="fi-map"></i><span> 账户管理 </span></a>
+
+                                </li>
+                                <li>
+                                    <a href="/Admin/Mail/Index"><i class="fi-mail"></i><span> 邮箱管理 </span></a>
+
+                                </li>
+                                <li>
+                                    <a href="javascript: void(0);"><i class="fi-bar-graph-2"></i> <span> 历史记录 </span> <span class="menu-arrow"></span></a>
+                                    <ul class="nav-second-level" aria-expanded="false">
+                                        <li><a href="/Admin/Admin/BackHist">撤销记录</a></li>
+                                        <li><a href="/Admin/Admin/OverHist">报废记录</a></li>
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <!-- Sidebar -->
+                <div class="clearfix"></div>
+            </div>
+            <!-- Sidebar -left -->
+        </div>
+        <!-- 左边内容 结束 -->
+        <!-- ========== 右边内容 开始 ========== -->
+        <div class="content-page">
+            <!-- 分页内容 开始 -->
+            <div class="content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+            <!-- 分页内容 结束 -->
+            <footer class="footer text-right">
+                2019 © 创维数字制造总部-工程IT科-肖斌武
+            </footer>
+        </div>
+        <!-- 右边内容 结束 -->
+
+    </div>
+    <!-- jQuery  -->
+    <script src="~/Content/assets/js/popper.min.js"></script>
+    <script src="~/Content/assets/js/bootstrap.min.js"></script>
+    <script src="~/Content/assets/js/metisMenu.min.js"></script>
+    <script src="~/Content/assets/js/waves.js"></script>
+    <script src="~/Content/assets/js/jquery.slimscroll.js"></script>
+    <script src="~/Content/assets/js/jquery.waypoints.min.js"></script>
+    <script src="~/Content/assets/js/jquery.counterup.min.js"></script>
+
+    <!-- Chart JS -->
+    <script src="~/Content/assets/js/chart.bundle.js"></script>
+
+    <!-- App js -->
+    <script src="~/Content/assets/js/jquery.core.js"></script>
+    <script src="~/Content/assets/js/jquery.app.js"></script>
+    <script src="~/Content/js/login.js"></script>
+
+</body>
+</html>

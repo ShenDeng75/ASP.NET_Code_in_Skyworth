@@ -1,0 +1,81 @@
+﻿@model IEnumerable<ShenDeng.Domain.Mail>
+@using ShenDeng.Web.Help;
+@{
+    ViewBag.Title = "邮箱管理";
+    Layout = "~/Views/Shared/Home_Layout.cshtml";
+}
+
+<button type="button" class="button1" data-toggle="modal" data-target="#add_mail" data-backdrop="static">添加邮箱</button>
+
+<!-- 添加窗口 -->
+<div class="modal fade" id="add_mail" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">添加邮箱</h3>
+            </div>
+            <div class="modal-body">
+                <table  width="800px" style="height:50px">
+                    <tr>
+                        <td class="mylable">姓名</td>
+                        <td><input type="text" id="add_account" name=@key.name />  </td>
+                    </tr>
+                    <tr>
+                        <td class="mylable">职责</td>
+                        <td><select class="shortselect" name=@key.duty id="select_duty" onchange="choosepwd()">
+                            <option>IQC</option>
+                            <option>数字</option>
+                            <option>无线</option>
+                            <option>新世界</option>
+                            <!-- option>发送邮箱</option> -->
+                            </select></td>
+                    </tr>
+                    <tr>
+                        <td class="mylable">邮箱</td>
+                        <td><input type="text" id="add_account" name=@key.mailaddre />  </td>
+                    </tr>
+                    <tr class="hide" id="show_pwd">
+                        <td class="mylable">密码</td>
+                        <td><input type="text" id="add_account" name=@key.mailpwd />  </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" id="add_mail_button" onclick="add_mail()">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style='overflow:auto;'>
+    <table class="my-table" style="width:100%">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>职责</th>
+                <th>邮箱</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="show_account">
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Duty</td>
+                    <td>@item.MailAddre</td>
+                    <td>
+                        @if (item.Duty != "发送邮箱")
+                        {
+                            <a href="#" onclick="delete_mail('@item.DBID')">删除</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>
+<script src="~/Content/js/Mail.js"></script>

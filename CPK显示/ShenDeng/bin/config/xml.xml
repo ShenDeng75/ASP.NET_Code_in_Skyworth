@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConfigModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <StaticDirPath />
+  <SetList />
+  <file_01 />
+  <file_02 />
+  <file_03 />
+  <file_04 />
+  <file_05 />
+  <file_06 />
+  <file_07 />
+  <file_08 />
+  <file_09 />
+  <ip>172.20.5.141,1433</ip>
+  <db />
+  <user />
+  <pwd />
+</ConfigModel>

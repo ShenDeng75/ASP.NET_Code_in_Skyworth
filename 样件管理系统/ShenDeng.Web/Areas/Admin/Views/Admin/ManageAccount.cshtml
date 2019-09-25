@@ -1,0 +1,76 @@
+﻿@model IEnumerable<ShenDeng.Framework.Domain.Account>
+@using ShenDeng.Web.Help;
+@using ShenDeng.Framework.Domain;
+@{
+    ViewBag.Title = "账户管理";
+    Layout = "~/Views/Shared/Home_Layout.cshtml";
+}
+<br />
+
+<button type="button" class="button1" data-toggle="modal" data-target="#add_account" data-backdrop="static">添加账户</button>
+
+<!-- 添加窗口 -->
+<div class="modal fade" id="add_account" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 id="myModalLabel">添加账户</h3>
+            </div>
+            <div class="modal-body">
+                <table  width="800px" style="height:50px">
+                    <tr>
+                        <td class="mylable">用户名</td>
+                        <td><input type="text" id="add_account" name=@key.username />  </td>
+                    </tr>
+                    <tr>
+                        <td class="mylable">工 &nbsp; 号</td>
+                        <td><input type="text" name=@key.jobnumber />  </td>
+                    </tr>
+                    <tr>
+                        <td class="mylable">权 &nbsp; 限</td>
+                        <td id="choose_roles">
+                            <div style="display: block"><input type="checkbox" name="find" value=@Role.Find />查询</div>
+                            <div style="display: block"><input type="checkbox" name="check" value=@Role.Check />样件审核</div>
+                            <div style="display: block"><input type="checkbox" name="save" value=@Role.Save />样件存储</div>
+                            <div style="display: block"><input type="checkbox" name="over" value=@Role.OverHandl />超期处理</div>
+                            <div style="display: block"><input type="checkbox" name="admin" value=@Role.Admin />管理员</div>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" type="button" id="add_acc_button" onclick="add_account()">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div style='overflow:auto;'>
+    <table class="my-table" style="width:100%">
+        <thead>
+            <tr>
+                <th>用户名</th>
+                <th>工号</th>
+                <th>权限</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody id="show_account">
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id.UserName</td>
+                    <td>@item.Job_Numner</td>
+                    <td>@item.Roles</td>
+                    <td>
+                        <a href="#" onclick="delete_account('@item.Id.UserName')">删除账户</a> &nbsp;|
+                        <a href="#" onclick="reset('@item.Id.UserName')">重置密码</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div><script src="~/Content/js/admin.js"></script>

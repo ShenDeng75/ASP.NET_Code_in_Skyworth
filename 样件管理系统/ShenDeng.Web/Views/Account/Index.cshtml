@@ -1,0 +1,14 @@
+﻿@using ShenDeng.Framework.Base;
+@using ShenDeng.Framework;
+@{
+    ViewBag.Title = "登录";
+    Layout = "~/Views/Shared/Home_Layout.cshtml";
+}
+@{
+    var sessionsever = UnityIoC.Get<IMySessionService>();
+    var account = sessionsever.GetAccount();
+    if (account == null)
+    {
+        <h2 style="text-align: center; margin-top:20%">请先登录</h2>
+    }
+}
